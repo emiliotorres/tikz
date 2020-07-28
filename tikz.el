@@ -25,7 +25,7 @@
 
 ;; * ~tikz~ A minor mode to edit TikZ pictures with Emacs
 
-;; ~tikz~ is a minor mode for creating TikZ diagrams with Emcas as an
+;; ~tikz~ is a minor mode for creating TikZ diagrams with Emacs as an
 ;; alternative to QtikZ.
 
 ;; ** Installation
