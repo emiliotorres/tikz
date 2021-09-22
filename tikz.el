@@ -105,17 +105,16 @@
 
 (defun tikz-copy-current-buffer-to-temp-tex-file (buf filename preamble)
   "Create a file FILENAME with the current buffer BUF and `%&PREAMBLE' string.
+Moreover, enclose the buffers content in a latex-document environment.
 %&preamble
 content of BUF"
   (save-excursion
-    ;; Insert
-    (with-temp-buffer
-      (insert (concat "%&" preamble "\n"))
-      (write-region nil nil filename nil 'quiet))
+    (write-region (concat "%&" preamble "\n") nil filename nil 'quiet)
+    (write-region "\\begin{document}\n"  nil filename t 'quiet)
     (set-buffer buf)
-    (write-region nil nil filename t 'quiet)))
-
-
+    (write-region nil nil filename t 'quiet)
+    (write-region "\\end{document}\n"  nil filename t 'quiet)
+    ))
 
 (defun tikz-run-pdflatex (input-buffer-tex
                           file-temp-tex
@@ -154,7 +153,7 @@ Run pdflatex in FILE-TEMP-TEX."
            (file-temp-tex (concat (make-temp-file tikz-file-temp-tex-prefix) ".tex"))
            (file-temp-pdf (concat (file-name-sans-extension file-temp-tex) ".pdf"))
            (dir-temp-tex (file-name-directory file-temp-tex))
-           (file-temp-preamble (concat "\"" file-temp-tex tikz-preamble-precompiled "\""))
+           (file-temp-preamble (concat file-temp-tex tikz-preamble-precompiled))
            (secs 0))
       (when tikz-resume-timer-internal
         (tikz-kill)) ; Remove other/previous tikzing
@@ -167,12 +166,13 @@ Run pdflatex in FILE-TEMP-TEX."
       ;; This pre-compilation is done only one time.
       (set-buffer buffcompilation)
       (erase-buffer)
+      (cd (file-name-directory tikz-preamble-template))
       (call-process  "pdflatex" nil buffcompilation nil
                      "-ini" (concat "-output-directory=" dir-temp-tex)
                      (concat "-jobname=" file-temp-preamble )
                      "\"&pdflatex\""
                      "mylatexformat.ltx"
-                     (concat "\"" file-temp-tex "\""))
+                     (concat "\"" tikz-preamble-template "\""))
       (message "TikZing. (Do not modify preamble!) Pre-compiling...done")
       ;;
       ;; Activamos zathura, el visor externo de pdf
