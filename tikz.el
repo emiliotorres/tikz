@@ -100,7 +100,8 @@
 (defvar tikz-resume-timer-internal nil
   "Timer for `tikz-run-pdflatex' to reschedule itself, or nil.")
 
-
+(defvar tikz-preamble-template (concat (file-name-directory load-file-name) "templates/tikz-preamble-template.tex")
+  "Preamble template")
 
 (defun tikz-copy-current-buffer-to-temp-tex-file (buf filename preamble)
   "Create a file FILENAME with the current buffer BUF and `%&PREAMBLE' string.
