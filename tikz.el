@@ -82,7 +82,7 @@
 (defvar tikz-resume-timer 1
   "Timer for refreshing pdf.")
 
-(defvar tikz-zathura "zathura"
+(defvar tikz-viewer "zathura"
   "External pdf viewer.")
 
 
@@ -197,7 +197,7 @@ Run pdflatex in FILE-TEMP-TEX."
         (setq secs (+ 1 secs)))
       (sit-for 1)
       ;; Otherwise, Zathura fails.
-      (start-process (concat "tikz" tikz-zathura)  nil  tikz-zathura file-temp-pdf)
+      (start-process (concat "tikz" tikz-viewer)  nil  tikz-viewer file-temp-pdf)
       (message "TikZing waiting for the first compilation...done")
       ;;
       ;; Step V. Pdflatex when in idle time
@@ -219,8 +219,8 @@ Run pdflatex in FILE-TEMP-TEX."
     (cancel-timer tikz-resume-timer-internal))
   (cancel-function-timers 'tikz-run-pdflatex)
   ;; Kill process
-  (when (get-process (concat "tikz" tikz-zathura))
-    (delete-process (get-process (concat "tikz" tikz-zathura))))
+  (when (get-process (concat "tikz" tikz-viewer))
+    (delete-process (get-process (concat "tikz" tikz-viewer))))
   (when (get-process tikz-buffer-compilation)
     (delete-process (get-process tikz-buffer-compilation))))
 

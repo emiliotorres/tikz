@@ -30,7 +30,7 @@ the right side, Zathura shows the pdf.
 
 ** Configuration
 
-- You can select another pdf viewer. Modify =tikz-zathura= with your chosen viewer.
+- You can select another pdf viewer. Modify =tikz-viewer= with your chosen viewer.
 - You can modify the idle timer to update the pdf. Modify =tikz-resume-timer=.
 
 
