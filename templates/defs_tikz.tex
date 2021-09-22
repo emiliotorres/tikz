@@ -1,0 +1,18 @@
+%%%%%%%%
+% TIKZ %
+%%%%%%%%
+\tikzstyle{input} = [text depth=.25ex]
+\tikzstyle{output} = [text depth=.25ex]
+\tikzstyle{operator} = [ circle, draw, thick, minimum size=1.25em, inner sep=0em, fill=white]
+\tikzstyle{operatorLarge} = [ circle, draw, thick, minimum size=0.5em, inner sep=0.25em, fill=white]
+\tikzstyle{filter} = [rectangle, draw, thick, minimum width=2em, minimum height=1.5em, inner xsep=0.25em,fill=white]
+\tikzstyle{filterHighlight} = [filter, fill=highlight]
+\tikzstyle{filterWide} = [filter, minimum width=6em]
+\tikzstyle{filterSmall} = [filter, minimum width=2em]
+\tikzstyle{branch} = [draw,fill,shape=circle,minimum size=0.1em,inner sep=0em, node distance=3em]
+
+\newlength{\xunit}
+\newlength{\yunit}
+\makeatletter
+\tikzset{get units/.code={\xunit=\pgf@xx%
+\yunit=\pgf@yy}}

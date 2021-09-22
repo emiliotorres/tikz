@@ -1,0 +1,8 @@
+\begin{tikzpicture}
+  \node[input] (in) {TikZ-Code};
+  \node[filter, right=1 of in] (tikzel) {tikz.el};
+  \node[output, align=center, right=1 of tikzel] (out) {awesome \\ output};
+
+  \draw[->] (in) -- (tikzel);
+  \draw[->] (tikzel) -- (out);
+\end{tikzpicture}
