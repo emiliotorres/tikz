@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Emilio Torres-Manzanera <torres@uniovi.es>
 
 ;; Author: Emilio Torres-Manzanera <torres@uniovi.es>
-;; Version: 0.12
+;; Version: 0.13
 ;; Keywords: tex
 ;; URL: https://github.com/emiliotorres/tikz
 ;; Package-Requires: ((emacs "24.1"))

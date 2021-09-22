@@ -48,11 +48,12 @@ the right side, Zathura shows the pdf.
 
 ** ChangeLog
 
-| date             |  ver | Change                 |
-|------------------+------+------------------------|
-| <2020-07-19 lun> | 0.12 | Time to launch Zathura |
-| <2020-07-08 lun> | 0.11 | Time to launch Zathura |
-| <2020-06-22 lun> |  0.1 |                        |
+| date             |  ver | Change                    |
+|------------------+------+---------------------------|
+| <2021-09-22 Wed> | 0.13 | Enable preamble templates |
+| <2020-07-19 lun> | 0.12 | Time to launch Zathura    |
+| <2020-07-08 lun> | 0.11 | Time to launch Zathura    |
+| <2020-06-22 lun> |  0.1 |                           |
 
 ** Acknowledgement
 
