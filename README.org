@@ -30,7 +30,7 @@ the right side, Zathura shows the pdf.
 
 ** Configuration
 
-- You can select another pdf viewer. Modify =tikz-zathura= with your chosen viewer.
+- You can select another pdf viewer. Modify =tikz-viewer= with your chosen viewer.
 - You can modify the idle timer to update the pdf. Modify =tikz-resume-timer=.
 
 
@@ -48,11 +48,12 @@ the right side, Zathura shows the pdf.
 
 ** ChangeLog
 
-| date             |  ver | Change                 |
-|------------------+------+------------------------|
-| <2020-07-19 lun> | 0.12 | Time to launch Zathura |
-| <2020-07-08 lun> | 0.11 | Time to launch Zathura |
-| <2020-06-22 lun> |  0.1 |                        |
+| date             |  ver | Change                    |
+|------------------+------+---------------------------|
+| <2021-09-22 Wed> | 0.13 | Enable preamble templates |
+| <2020-07-19 lun> | 0.12 | Time to launch Zathura    |
+| <2020-07-08 lun> | 0.11 | Time to launch Zathura    |
+| <2020-06-22 lun> |  0.1 |                           |
 
 ** Acknowledgement
 

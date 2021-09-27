@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Emilio Torres-Manzanera <torres@uniovi.es>
 
 ;; Author: Emilio Torres-Manzanera <torres@uniovi.es>
-;; Version: 0.12
+;; Version: 0.13
 ;; Keywords: tex
 ;; URL: https://github.com/emiliotorres/tikz
 ;; Package-Requires: ((emacs "24.1"))
@@ -82,7 +82,7 @@
 (defvar tikz-resume-timer 1
   "Timer for refreshing pdf.")
 
-(defvar tikz-zathura "zathura"
+(defvar tikz-viewer "zathura"
   "External pdf viewer.")
 
 
@@ -100,21 +100,21 @@
 (defvar tikz-resume-timer-internal nil
   "Timer for `tikz-run-pdflatex' to reschedule itself, or nil.")
 
-
+(defvar tikz-preamble-template (concat (file-name-directory load-file-name) "templates/tikz-preamble-template.tex")
+  "Preamble template")
 
 (defun tikz-copy-current-buffer-to-temp-tex-file (buf filename preamble)
   "Create a file FILENAME with the current buffer BUF and `%&PREAMBLE' string.
+Moreover, enclose the buffers content in a latex-document environment.
 %&preamble
 content of BUF"
   (save-excursion
-    ;; Insert
-    (with-temp-buffer
-      (insert (concat "%&" preamble "\n"))
-      (write-region nil nil filename nil 'quiet))
+    (write-region (concat "%&" preamble "\n") nil filename nil 'quiet)
+    (write-region "\\begin{document}\n"  nil filename t 'quiet)
     (set-buffer buf)
-    (write-region nil nil filename t 'quiet)))
-
-
+    (write-region nil nil filename t 'quiet)
+    (write-region "\\end{document}\n"  nil filename t 'quiet)
+    ))
 
 (defun tikz-run-pdflatex (input-buffer-tex
                           file-temp-tex
@@ -153,7 +153,7 @@ Run pdflatex in FILE-TEMP-TEX."
            (file-temp-tex (concat (make-temp-file tikz-file-temp-tex-prefix) ".tex"))
            (file-temp-pdf (concat (file-name-sans-extension file-temp-tex) ".pdf"))
            (dir-temp-tex (file-name-directory file-temp-tex))
-           (file-temp-preamble (concat "\"" file-temp-tex tikz-preamble-precompiled "\""))
+           (file-temp-preamble (concat file-temp-tex tikz-preamble-precompiled))
            (secs 0))
       (when tikz-resume-timer-internal
         (tikz-kill)) ; Remove other/previous tikzing
@@ -166,12 +166,13 @@ Run pdflatex in FILE-TEMP-TEX."
       ;; This pre-compilation is done only one time.
       (set-buffer buffcompilation)
       (erase-buffer)
+      (cd (file-name-directory tikz-preamble-template))
       (call-process  "pdflatex" nil buffcompilation nil
                      "-ini" (concat "-output-directory=" dir-temp-tex)
                      (concat "-jobname=" file-temp-preamble )
                      "\"&pdflatex\""
                      "mylatexformat.ltx"
-                     (concat "\"" file-temp-tex "\""))
+                     (concat "\"" tikz-preamble-template "\""))
       (message "TikZing. (Do not modify preamble!) Pre-compiling...done")
       ;;
       ;; Activamos zathura, el visor externo de pdf
@@ -197,7 +198,7 @@ Run pdflatex in FILE-TEMP-TEX."
         (setq secs (+ 1 secs)))
       (sit-for 1)
       ;; Otherwise, Zathura fails.
-      (start-process (concat "tikz" tikz-zathura)  nil  tikz-zathura file-temp-pdf)
+      (start-process (concat "tikz" tikz-viewer)  nil  tikz-viewer file-temp-pdf)
       (message "TikZing waiting for the first compilation...done")
       ;;
       ;; Step V. Pdflatex when in idle time
@@ -219,8 +220,8 @@ Run pdflatex in FILE-TEMP-TEX."
     (cancel-timer tikz-resume-timer-internal))
   (cancel-function-timers 'tikz-run-pdflatex)
   ;; Kill process
-  (when (get-process (concat "tikz" tikz-zathura))
-    (delete-process (get-process (concat "tikz" tikz-zathura))))
+  (when (get-process (concat "tikz" tikz-viewer))
+    (delete-process (get-process (concat "tikz" tikz-viewer))))
   (when (get-process tikz-buffer-compilation)
     (delete-process (get-process tikz-buffer-compilation))))
 
