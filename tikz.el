@@ -113,8 +113,7 @@ content of BUF"
     (write-region "\\begin{document}\n"  nil filename t 'quiet)
     (set-buffer buf)
     (write-region nil nil filename t 'quiet)
-    (write-region "\\end{document}\n"  nil filename t 'quiet)
-    ))
+    (write-region "\\end{document}\n"  nil filename t 'quiet)))
 
 (defun tikz-run-pdflatex (input-buffer-tex
                           file-temp-tex
@@ -191,8 +190,7 @@ Run pdflatex in FILE-TEMP-TEX."
       ;; (message "pdf %s" file-temp-pdf)
       ;; Wait until the pdf exists.
       (while (and (not (file-exists-p file-temp-pdf))
-                  (< secs 20)
-                  )
+                  (< secs 20))
         (message "TikZing waiting for the first compilation (%s seconds)..." (- 20 secs))
         (sit-for 1)
         (setq secs (+ 1 secs)))
