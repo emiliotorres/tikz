@@ -50,6 +50,7 @@ the right side, Zathura shows the pdf.
 
 | date             |  ver | Change                    |
 |------------------+------+---------------------------|
+| <2022-05-25 Wed> | 0.14 | Fixed compilation error   |
 | <2021-09-22 Wed> | 0.13 | Enable preamble templates |
 | <2020-07-19 lun> | 0.12 | Time to launch Zathura    |
 | <2020-07-08 lun> | 0.11 | Time to launch Zathura    |
