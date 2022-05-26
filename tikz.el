@@ -152,7 +152,7 @@ Run pdflatex in FILE-TEMP-TEX."
            (file-temp-tex (concat (make-temp-file tikz-file-temp-tex-prefix) ".tex"))
            (file-temp-pdf (concat (file-name-sans-extension file-temp-tex) ".pdf"))
            (dir-temp-tex (file-name-directory file-temp-tex))
-           (file-temp-preamble (concat file-temp-tex tikz-preamble-precompiled))
+           (file-temp-preamble (concat (file-name-sans-extension file-temp-tex) tikz-preamble-precompiled))
            (secs 0))
       (when tikz-resume-timer-internal
         (tikz-kill)) ; Remove other/previous tikzing
